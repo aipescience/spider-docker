@@ -1,0 +1,1 @@
+INSTALL PLUGIN FEDERATED SONAME 'ha_federatedx.so';

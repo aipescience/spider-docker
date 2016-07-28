@@ -1,0 +1,33 @@
+[mysqld]
+default_storage_engine  = ARIA
+
+performance_schema      = on
+
+# server settings
+max_allowed_packet      = 64M
+
+# global buffer settings
+table_open_cache        = 512
+thread_cache_size       = 16
+query_cache_size        = 128M
+
+# global MyISAM buffer settings
+key_buffer_size         = 256M
+myisam_sort_buffer_size = 256M
+
+# per connection settings
+sort_buffer_size        = 2M
+thread_stack            = 256K
+
+# per connection MyISAM settings
+read_buffer_size        = 16M
+read_rnd_buffer_size    = 16M
+
+# temporary tables
+tmp-table-size          = 8M
+
+# time out settings
+connect_timeout         = 600
+interactive_timeout     = 600
+net_read_timeout        = 600
+net_write_timeout       = 600
