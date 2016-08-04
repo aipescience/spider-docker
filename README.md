@@ -18,7 +18,7 @@ Create a network for the spider nodes
 -------------------------------------
 
 ```
-docker network inspect spider
+docker network create spider
 ```
 
 Run the containers
