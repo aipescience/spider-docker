@@ -7,43 +7,50 @@ Based on the Dockerimages of the MariaDB project. See also:
 * https://github.com/docker-library/mariadb/blob/master/10.1/Dockerfile
 * https://github.com/docker-library/mariadb/blob/master/10.1/docker-entrypoint.sh
 
-Build docker image
-------------------
+Setup
+-----
+
+1. Configure /etc/hosts
+
+    ```
+    172.16.10.100 spider00.docker spider00
+    172.16.10.101 spider01.docker spider01
+    172.16.10.102 spider02.docker spider02
+    172.16.10.103 spider03.docker spider03
+    172.16.10.104 spider04.docker spider04
+    ```
+
+2. Create a network for the spider nodes
+
+    ```
+    docker network create --gateway 172.16.10.1 --subnet 172.16.10.0/24 spider
+    ```
+
+3. Build docker image
+
+    ```
+    docker-compose build
+    ```
+
+4. Run the containers
+
+    ```
+    docker-compose up
+    ```
+
+Usage
+-----
+
+The different MariaDB instances are then accessible on the hosts spider00 - spider04 on port `3306`.
 
 ```
-docker build -t spider .
-```
-
-Create a network for the spider nodes
--------------------------------------
-
-```
-docker network create spider
-```
-
-Run the containers
-------------------
-
-(e.g. for one head node and four shard nodes)
-
-```
-docker run -d --name spider00 --net=spider -p 33060:3306 -e MYSQL_ROOT_PASSWORD=0000 spider
-docker run -d --name spider01 --net=spider -p 33061:3306 -e MYSQL_ROOT_PASSWORD=0000 spider
-docker run -d --name spider02 --net=spider -p 33062:3306 -e MYSQL_ROOT_PASSWORD=0000 spider
-docker run -d --name spider03 --net=spider -p 33063:3306 -e MYSQL_ROOT_PASSWORD=0000 spider
-docker run -d --name spider04 --net=spider -p 33064:3306 -e MYSQL_ROOT_PASSWORD=0000 spider
-```
-
-The different MySQL instances are then accessible on the host on port `33060`-`33064`. You can connect using
-
-```
-mysql -h 127.0.0.1 -P 33060 -uroot -p
+mysql -h spider00 -uroot
 ```
 
 or
 
 ```
-mysql -P 33060
+mysql -h spider00
 ```
 
 or using this `~/.my.cnf`:
@@ -52,5 +59,4 @@ or using this `~/.my.cnf`:
 [client]
 user=root
 password=0000
-host=127.0.0.1
 ```

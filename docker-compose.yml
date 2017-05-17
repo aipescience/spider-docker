@@ -1,0 +1,41 @@
+version: '2'
+services:
+  spider00:
+    build: .
+    environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    networks:
+      spider:
+        ipv4_address: 172.16.10.100
+  spider01:
+    build: .
+    environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    networks:
+      spider:
+        ipv4_address: 172.16.10.101
+  spider02:
+    build: .
+    environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    networks:
+      spider:
+        ipv4_address: 172.16.10.102
+  spider03:
+    build: .
+    environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    networks:
+      spider:
+        ipv4_address: 172.16.10.103
+  spider04:
+    build: .
+    environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    networks:
+      spider:
+        ipv4_address: 172.16.10.104
+networks:
+  spider:
+    external:
+      name: spider
